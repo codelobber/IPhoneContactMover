@@ -14,6 +14,7 @@
 		2C71CA711DA2D1A900DF9BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C71CA701DA2D1A900DF9BF6 /* Assets.xcassets */; };
 		2C71CA741DA2D1A900DF9BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C71CA721DA2D1A900DF9BF6 /* LaunchScreen.storyboard */; };
 		2C71CA801DA2D6DA00DF9BF6 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C71CA7F1DA2D6DA00DF9BF6 /* Contacts.framework */; };
+		2CDCB4EE1DAC125F00108198 /* UIPickerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB4ED1DAC125F00108198 /* UIPickerHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		2C71CA731DA2D1A900DF9BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C71CA751DA2D1A900DF9BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C71CA7F1DA2D6DA00DF9BF6 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		2CDCB4EC1DAC125F00108198 /* UIPickerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIPickerHelper.h; path = UI/UIPickerHelper.h; sourceTree = "<group>"; };
+		2CDCB4ED1DAC125F00108198 /* UIPickerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIPickerHelper.m; path = UI/UIPickerHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 		2C71CA631DA2D1A900DF9BF6 /* IphoneContactMover */ = {
 			isa = PBXGroup;
 			children = (
+				2CDCB4EB1DAC122400108198 /* UI */,
 				2C71CA671DA2D1A900DF9BF6 /* AppDelegate.h */,
 				2C71CA681DA2D1A900DF9BF6 /* AppDelegate.m */,
 				2C71CA6A1DA2D1A900DF9BF6 /* ViewController.h */,
@@ -81,6 +85,15 @@
 				2C71CA651DA2D1A900DF9BF6 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CDCB4EB1DAC122400108198 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2CDCB4EC1DAC125F00108198 /* UIPickerHelper.h */,
+				2CDCB4ED1DAC125F00108198 /* UIPickerHelper.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +170,7 @@
 				2C71CA6C1DA2D1A900DF9BF6 /* ViewController.m in Sources */,
 				2C71CA691DA2D1A900DF9BF6 /* AppDelegate.m in Sources */,
 				2C71CA661DA2D1A900DF9BF6 /* main.m in Sources */,
+				2CDCB4EE1DAC125F00108198 /* UIPickerHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +285,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.we.IphoneContactMover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -283,6 +298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.we.IphoneContactMover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -305,6 +321,7 @@
 				2C71CA7A1DA2D1A900DF9BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

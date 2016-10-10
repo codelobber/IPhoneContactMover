@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #include <Contacts/CNContactStore.h>
+#include <Contacts/CNGroup.h>
+#include <Contacts/CNContainer.h>
+#include <Contacts/CNContactFetchRequest.h>
+#include <Contacts/CNContact+Predicates.h>
+#include <UIKit/UIPickerView.h>
+#include "UIPickerHelper.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIPickerHelperDelegate>
 
+@property (nullable,nonatomic,weak) NSArray * containersArray;
 
 @end
 
