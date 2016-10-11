@@ -13,11 +13,12 @@
 
 @interface UIPickerHelper : NSObject <UIPickerViewDelegate,UIPickerViewDataSource>
 
-@property (nullable,nonatomic,weak) NSArray * data ;
-@property (nullable,nonatomic,weak) NSObject<UIPickerHelperDelegate> * delegate;
+@property (nonnull,nonatomic,strong) NSArray * data ;
+@property (nonnull,nonatomic,strong) NSObject<UIPickerHelperDelegate> * delegate;
 
 - (id _Nonnull) initWithArray:(NSArray * _Nonnull) dataArray;
 - (id _Nonnull) initWithArray:(NSArray * _Nonnull) dataArray andDelegate:(NSObject<UIPickerHelperDelegate> * _Nonnull) delegate;
+- (void) destroy;
 
 @end
 

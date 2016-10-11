@@ -21,7 +21,7 @@
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    NSLog(@"%lu",_data.count);
+    NSLog(@"%lu",(unsigned long)_data.count);
     return _data.count;
 }
 
@@ -30,11 +30,18 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    NSLog(@"Total %lu",(unsigned long)_data.count);
     return [_data objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    NSLog(@"pick %i",row);
     [_delegate pickerView:self pickerView:pickerView didSelectRow:row inComponent:component];
+}
+
+- (void) destroy {
+    _data = nil;
+    _delegate = nil;
 }
 
 

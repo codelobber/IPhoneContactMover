@@ -11,6 +11,8 @@
 
 @interface ViewController ()
 
+@property (nonnull,nonatomic,strong) UIPickerHelper * pickerHelper;
+
 @end
 
 @implementation ViewController
@@ -21,13 +23,10 @@
     
 }
 - (IBAction)TapOnContanerChooserFrom:(id)sender {
-    UIPickerView * containeirPicker = [[UIPickerView alloc] init];
-    UIPickerHelper * pickerHelper = [[UIPickerHelper alloc] initWithArray:[self getContainersList] andDelegate:self];
-    containeirPicker.delegate = pickerHelper;
-    containeirPicker.dataSource = pickerHelper;
-    containeirPicker.showsSelectionIndicator = YES;
-    containeirPicker.frame = CGRectMake(0, self.view.frame.size.height-250, self.view.frame.size.width , 250);
-    //containeirPicker.backgroundColor = [UIColor redColor];
+    UIPickerView * containeirPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-250, self.view.frame.size.width , 250)];
+    _pickerHelper = [[UIPickerHelper alloc] initWithArray:[self getContainersList] andDelegate:self];
+    containeirPicker.delegate = _pickerHelper;
+    containeirPicker.dataSource = _pickerHelper;
     [self.view addSubview:containeirPicker];
     NSLog(@"WOOO!");
     
@@ -48,7 +47,7 @@
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if(granted==YES){
                 containerMaster.containersArray = [store containersMatchingPredicate:nil error:nil];
-                NSLog(@" Containers: %lu", containerMaster.containersArray.count);
+                NSLog(@" Containers: %lu", (unsigned long)containerMaster.containersArray.count);
             } else {
                 NSLog(@"2 bad, i do not have access");
             }
@@ -60,11 +59,11 @@
 - (NSArray *) getContainersList{
     
     NSMutableArray * tempArray = [NSMutableArray new];
+    int i = 0;
     for (CNContainer * container in _containersArray) {
-        [tempArray addObject:container.description];
+        [tempArray addObject:[NSString stringWithFormat:@"%i. %@", i++, container.name]];
     }
-    NSLog(@" Containers: %lu", _containersArray.count);
-    NSLog(@" Containers total: %lu", tempArray.count);
+    NSLog(@" Containers: %lu", (unsigned long)_containersArray.count);
     return tempArray;
 }
 
@@ -107,8 +106,12 @@
 */
 
 
-- (void)pickerView:(UIPickerHelper *)pickerHelper pickerView:(UIPickerView *)UIPickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NSLog(@"Select: %@ ", [[pickerHelper data] objectAtIndex:row]);
+- (void)pickerView:(UIPickerHelper *)pickerHelper pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    NSLog(@"Select: %i - %@ ", row, [[pickerHelper data] objectAtIndex:row]);
+    [pickerView removeFromSuperview];
+    [pickerHelper destroy];
+    pickerHelper = nil;
+    pickerView = nil;
 }
 
 @end

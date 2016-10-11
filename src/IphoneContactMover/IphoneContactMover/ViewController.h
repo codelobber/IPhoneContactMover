@@ -17,7 +17,7 @@
 
 @interface ViewController : UIViewController <UIPickerHelperDelegate>
 
-@property (nullable,nonatomic,weak) NSArray * containersArray;
+@property (nonnull,nonatomic,strong) NSArray * containersArray;
 
 @end
 
