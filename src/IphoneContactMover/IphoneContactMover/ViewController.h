@@ -13,11 +13,23 @@
 #include <Contacts/CNContactFetchRequest.h>
 #include <Contacts/CNContact+Predicates.h>
 #include <UIKit/UIPickerView.h>
+#include <Contacts/CNSaveRequest.h>
+
+
+
 #include "UIPickerHelper.h"
 
 @interface ViewController : UIViewController <UIPickerHelperDelegate>
 
 @property (nonnull,nonatomic,strong) NSArray * containersArray;
+@property (nullable,weak, nonatomic) IBOutlet UIButton *buttonFrom;
+@property (nullable,weak, nonatomic) IBOutlet UIButton *buttonTo;
+
+
+typedef NS_ENUM(NSInteger,moverSteps){
+    moverStepsSelectFrom = 0,
+    moverStepsSelectTo
+};
 
 @end
 
