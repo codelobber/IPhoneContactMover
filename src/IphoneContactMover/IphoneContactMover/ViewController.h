@@ -14,6 +14,7 @@
 #include <Contacts/CNContact+Predicates.h>
 #include <UIKit/UIPickerView.h>
 #include <Contacts/CNSaveRequest.h>
+#include <UIKit/UIViewPropertyAnimator.h>
 
 
 
@@ -25,10 +26,22 @@
 @property (nullable,weak, nonatomic) IBOutlet UIButton *buttonFrom;
 @property (nullable,weak, nonatomic) IBOutlet UIButton *buttonTo;
 
+@property (nullable, weak, nonatomic) IBOutlet UIStackView *firstStepControls;
+@property (nullable, weak, nonatomic) IBOutlet UIStackView *secondStepControls;
+@property (nullable, weak, nonatomic) IBOutlet UIStackView *thirdStepControls;
+
+@property (nullable, weak, nonatomic) IBOutlet NSLayoutConstraint *firstStepTop;
 
 typedef NS_ENUM(NSInteger,moverSteps){
     moverStepsSelectFrom = 0,
     moverStepsSelectTo
+};
+
+typedef NS_ENUM(NSInteger,animationSteps){
+    moverStepsNothig = 0,
+    moverStepsNotSelectFrom,
+    moverStepsNotSelectTo,
+    moverStepsAllSelected
 };
 
 @end

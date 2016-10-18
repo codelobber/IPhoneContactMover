@@ -18,17 +18,127 @@
 @property (nullable,nonatomic,strong) CNContactStore * contactStore;
 @property (nullable,nonatomic,strong) NSDictionary * numOfContactsinContainer;
 @property (nonatomic) moverSteps currentStep;
+@property (nonatomic) animationSteps currentAnimStep;
 
 @end
 
 @implementation ViewController
 
+@synthesize currentAnimStep;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    //[self setCurrentStep:moverStepsNotSelectFrom];
+    self.currentAnimStep = moverStepsNotSelectFrom;
     [self initContactStore];
     [self loadContainers];
     [self loadNumOfContacts];
 }
+
+- (void)setCurrentAnimStep:(animationSteps) step{
+    if(currentAnimStep < step){
+        currentAnimStep = step;
+        [self playAnimationStep];
+    }
+}
+
+- (void) playAnimationStep{
+    switch (currentAnimStep) {
+        case moverStepsNotSelectFrom:
+            [self animationStep1];
+            break;
+        case moverStepsNotSelectTo:
+            [self animationStep2];
+            break;
+        case moverStepsAllSelected:
+            [self animationStep3];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) centerStackView:(UIStackView *) view{
+    CGRect frame = view.frame;
+    frame.origin.y = self.view.frame.size.height/2-frame.size.height/2;
+    frame.origin.x = 0;
+    frame.size.width = self.view.frame.size.width;
+    view.frame = frame;
+}
+
+-(void) animationStep1{
+    [self centerStackView:_firstStepControls];
+    _firstStepControls.alpha = 0;
+    _secondStepControls.hidden = YES;
+    _thirdStepControls.hidden = YES;
+    
+    UIViewPropertyAnimator * animation1 = [[UIViewPropertyAnimator alloc] initWithDuration:1 curve:UIViewAnimationCurveEaseIn animations:^{
+        _firstStepControls.alpha = 1;
+    }];
+    [animation1 startAnimation];
+}
+
+-(void) animationStep2{
+    
+    [self centerStackView:_secondStepControls];
+    _secondStepControls.alpha = 0;
+    _secondStepControls.hidden = NO;
+    _thirdStepControls.hidden = YES;
+    
+    CGRect frameNew = _firstStepControls.frame;
+    frameNew.origin.y = frameNew.origin.y - _secondStepControls.frame.size.height-20;
+    
+    UIViewPropertyAnimator * animation1 = [[UIViewPropertyAnimator alloc] initWithDuration:1 curve:UIViewAnimationCurveEaseOut animations:^{
+        _firstStepControls.alpha = 1;
+        _firstStepControls.frame = frameNew;
+    }];
+    
+    UIViewPropertyAnimator * animation2 = [[UIViewPropertyAnimator alloc] initWithDuration:1 curve:UIViewAnimationCurveEaseIn animations:^{
+        _secondStepControls.alpha = 1;
+    }];
+    
+//    [animation1 addCompletion:^(UIViewAnimatingPosition finalPosition) {
+//        [animation2 startAnimation];
+//    }];
+    
+    [animation1 startAnimation];
+    [animation2 startAnimationAfterDelay:0.5];
+}
+
+-(void) animationStep3{
+    
+    [self centerStackView:_thirdStepControls];
+    _thirdStepControls.alpha = 0;
+    _thirdStepControls.hidden = NO;
+    
+    CGRect frame1New = _firstStepControls.frame;
+    frame1New.origin.y = frame1New.origin.y - _thirdStepControls.frame.size.height-30;
+    
+    CGRect frame2New = _secondStepControls.frame;
+    frame2New.origin.y = frame2New.origin.y - _thirdStepControls.frame.size.height-30;
+    
+    UIViewPropertyAnimator * animation1 = [[UIViewPropertyAnimator alloc] initWithDuration:1 curve:UIViewAnimationCurveEaseOut animations:^{
+        _firstStepControls.frame = frame1New;
+        _secondStepControls.frame = frame2New;
+    }];
+    
+    UIViewPropertyAnimator * animation2 = [[UIViewPropertyAnimator alloc] initWithDuration:1 curve:UIViewAnimationCurveEaseIn animations:^{
+        _thirdStepControls.alpha = 1;
+    }];
+    
+    //    [animation1 addCompletion:^(UIViewAnimatingPosition finalPosition) {
+    //        [animation2 startAnimation];
+    //    }];
+    
+    [animation1 startAnimation];
+    [animation2 startAnimationAfterDelay:0.5];
+}
+
+
+
 - (IBAction)TapOnContanerChooserFrom:(id)sender {
     _currentStep = moverStepsSelectFrom;
     UIPickerView * containeirPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-250, self.view.frame.size.width , 250)];
@@ -164,11 +274,15 @@
             _containerForCopy = [_containersArray objectAtIndex:row];
             name = _containerForCopy.name == nil ? @"default" : _containerForCopy.name;
             [_buttonFrom setTitle:[NSString stringWithFormat:@"Container: %@", name] forState:UIControlStateNormal];
+            self.currentAnimStep = moverStepsNotSelectTo;
             break;
         case moverStepsSelectTo:
             _containerDestanetion = [_containersArray objectAtIndex:row];
             name = _containerDestanetion.name == nil ? @"default" : _containerDestanetion.name;
             [_buttonTo setTitle:[NSString stringWithFormat:@"Container: %@", name] forState:UIControlStateNormal];
+            self.currentAnimStep = moverStepsAllSelected;
+            break;
+        default:
             break;
     }
     [pickerView removeFromSuperview];
